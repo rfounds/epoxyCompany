@@ -6,8 +6,37 @@ import Image from 'next/image';
 import { AnimatedButton } from '../AnimatedButton';
 
 const Navbar = ({ companyColors }) => {
+  // Custom styles for nav link hover effect
+  const navLinkStyle = {
+    color: '#fff',
+    fontFamily: 'var(--font-oswald), sans-serif',
+    transition: 'all 0.3s ease',
+    position: 'relative',  // Required for the pseudo-element positioning
+    padding: '0.5rem 0.8rem',
+    display: 'inline-block'
+  };
+
   return (
     <header className="sticky-top" style={{ marginTop: '-1px' }}>
+      {/* Add CSS for underline animation */}
+      <style jsx global>{`
+        .nav-link-underline::after {
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 2px;
+          bottom: 5px;
+          left: 0;
+          background-color: #fff;
+          transition: width 0.3s ease;
+          opacity: 0.7;
+        }
+        
+        .nav-link-underline:hover::after {
+          width: 100%;
+        }
+      `}</style>
+
       <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: 'rgba(0,0,0,0.85)', padding: '0 1rem' }}>
         <div className="container">
           <Link href="/" legacyBehavior>
@@ -35,19 +64,19 @@ const Navbar = ({ companyColors }) => {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
-                <Link href="/" legacyBehavior><a className="nav-link active" aria-current="page" style={{color: '#fff', fontFamily: 'var(--font-oswald), sans-serif', transition: 'all 0.3s ease'}}>Home</a></Link>
+                <Link href="/" legacyBehavior><a className="nav-link nav-link-underline active" aria-current="page" style={navLinkStyle}>Home</a></Link>
               </li>
               <li className="nav-item">
-                <Link href="#about" legacyBehavior><a className="nav-link" style={{color: '#fff', fontFamily: 'var(--font-oswald), sans-serif', transition: 'all 0.3s ease'}}>About</a></Link>
+                <Link href="#about" legacyBehavior><a className="nav-link nav-link-underline" style={navLinkStyle}>About</a></Link>
               </li>
               <li className="nav-item">
-                <Link href="#services" legacyBehavior><a className="nav-link" style={{color: '#fff', fontFamily: 'var(--font-oswald), sans-serif', transition: 'all 0.3s ease'}}>Services</a></Link>
+                <Link href="#services" legacyBehavior><a className="nav-link nav-link-underline" style={navLinkStyle}>Services</a></Link>
               </li>
               <li className="nav-item">
-                <Link href="#why-choose-us" legacyBehavior><a className="nav-link" style={{color: '#fff', fontFamily: 'var(--font-oswald), sans-serif', transition: 'all 0.3s ease'}}>Why Us</a></Link>
+                <Link href="#why-choose-us" legacyBehavior><a className="nav-link nav-link-underline" style={navLinkStyle}>Why Us</a></Link>
               </li>
                <li className="nav-item">
-                <Link href="#testimonials" legacyBehavior><a className="nav-link" style={{color: '#fff', fontFamily: 'var(--font-oswald), sans-serif', transition: 'all 0.3s ease'}}>Testimonials</a></Link>
+                <Link href="#testimonials" legacyBehavior><a className="nav-link nav-link-underline" style={navLinkStyle}>Testimonials</a></Link>
               </li>
               <li className="nav-item">
                 <AnimatedButton 
