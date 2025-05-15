@@ -46,7 +46,7 @@ const HeroSection = ({ companyColors }) => {
   return (
     <section 
       id="hero" 
-      className="text-white d-flex align-items-center" 
+      className="hero-section text-white d-flex align-items-center" 
       style={{ 
         height: '100vh',
         position: 'relative',
@@ -111,15 +111,15 @@ const HeroSection = ({ companyColors }) => {
       </div>
       
       {/* Content container with grid layout */}
-      <div className="container" style={{ 
+      <div className="container hero-container" style={{ 
         position: 'relative', 
         zIndex: 5,
         opacity: isLoaded ? 1 : 0,
         transition: 'opacity 1.2s ease-in'
       }}>
-        <div className="row align-items-center flex-column flex-lg-row" style={{ minHeight: '80vh', paddingBottom: '80px' }}>
+        <div className="row align-items-center flex-column flex-lg-row" style={{ minHeight: 'auto', paddingBottom: '80px' }}>
           {/* Left column with main content */}
-          <div className="col-lg-7 text-lg-start text-center order-2 order-lg-1"
+          <div className="col-lg-7 text-lg-start text-center order-2 order-lg-1 hero-content"
             style={{ 
               transform: isLoaded ? 'translateY(0)' : 'translateY(30px)',
               transition: 'transform 1.2s ease-out'
@@ -128,8 +128,9 @@ const HeroSection = ({ companyColors }) => {
             {/* Logo element removed as requested */}
             
             {/* Main headline with animated background */}
-            <h1 className="display-3 fw-bold mb-3" 
+            <h1 className="fw-bold mb-3 hero-title" 
               style={{
+                fontSize: 'calc(2rem + 1.5vw)', // Responsive font size
                 color: '#fff',
                 fontFamily: 'var(--font-oswald), sans-serif',
                 textTransform: 'uppercase',
@@ -162,7 +163,7 @@ const HeroSection = ({ companyColors }) => {
             
             {/* Tagline with animated underline */}
             <div className="position-relative mb-5">
-              <p className="lead mb-2" style={{
+              <p className="lead mb-2 hero-subtitle" style={{
                 fontSize: '1.5rem', 
                 textShadow: '1px 1px 3px rgba(0,0,0,0.5)',
                 fontWeight: '400',
@@ -185,7 +186,7 @@ const HeroSection = ({ companyColors }) => {
             <div className="mb-5"></div>
             
             {/* CTA Buttons with enhanced styling */}
-            <div className="mt-4" style={{
+            <div className="mt-4 hero-cta-buttons" style={{
               opacity: isLoaded ? 1 : 0,
               transform: isLoaded ? 'translateY(0)' : 'translateY(30px)',
               transition: 'all 1s ease-out 0.8s'
@@ -249,7 +250,7 @@ const HeroSection = ({ companyColors }) => {
               transition: 'all 1.4s ease-out 0.4s'
             }}
           >
-            <div style={{
+            <div className="hero-logo" style={{
               position: 'relative',
               width: '100%',
               maxWidth: '450px',
@@ -277,7 +278,7 @@ const HeroSection = ({ companyColors }) => {
       {/* Scroll down indicator - positioned lower on mobile */}
       <div className="scroll-indicator" style={{
         position: 'absolute',
-        bottom: '10px',
+        bottom: '5px',
         left: '50%',
         transform: 'translateX(-50%)',
         zIndex: 10,
@@ -303,10 +304,73 @@ const HeroSection = ({ companyColors }) => {
       </div>
       
       {/* CSS Animations */}
-      <style jsx>{`
+      <style jsx global>{`
+        /* iPhone SE specific optimizations */
+        @media (max-width: 375px) and (max-height: 667px) {
+          .hero-section {
+            padding-top: 60px !important;
+          }
+          .hero-container {
+            padding-top: 0 !important;
+          }
+          .hero-logo {
+            width: 50% !important;
+            max-width: 120px !important;
+          }
+          .hero-content {
+            padding-top: 0 !important;
+            padding-bottom: 20px !important;
+          }
+          .hero-title {
+            font-size: calc(1.2rem + 1vw) !important;
+            margin-bottom: 0.3rem !important;
+          }
+          .hero-subtitle {
+            font-size: 0.9rem !important;
+            margin-bottom: 0.5rem !important;
+          }
+          .hero-cta-buttons {
+            margin-top: 0.5rem !important;
+          }
+          .hero-cta-buttons .btn {
+            padding: 8px 16px !important;
+            font-size: 0.9rem !important;
+          }
+        }
+        
+        @media (max-height: 700px) {
+          .hero-section {
+            min-height: auto !important;
+            height: auto !important;
+          }
+          .hero-logo {
+            width: 70% !important;
+            max-width: 250px !important;
+          }
+          .hero-content {
+            padding-top: 60px !important;
+            padding-bottom: 40px !important;
+          }
+          .hero-title {
+            font-size: calc(1.5rem + 1vw) !important;
+            margin-bottom: 0.5rem !important;
+          }
+          .hero-subtitle {
+            font-size: 1rem !important;
+            margin-bottom: 1rem !important;
+          }
+          .hero-cta-buttons {
+            margin-top: 1rem !important;
+          }
+          .hero-cta-buttons .btn {
+            padding: 10px 20px !important;
+            font-size: 1rem !important;
+          }
+        }
+        
         @keyframes float {
           0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
+          50% { transform: translateY(-5px); } /* Reduced motion for smaller screens */
         }
         
         @keyframes pulse {
