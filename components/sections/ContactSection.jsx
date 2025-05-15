@@ -1,9 +1,81 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { AnimatedSubmitButton } from '../AnimatedButton';
 
 const ContactSection = ({ companyColors }) => {
+  const [formStatus, setFormStatus] = useState({
+    submitting: false,
+    submitted: false,
+    success: false,
+    message: ''
+  });
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // Set submitting state
+    setFormStatus({
+      ...formStatus,
+      submitting: true,
+      message: 'Sending your request...'
+    });
+    
+    try {
+      // Create form data object from the form fields
+      const formData = {};
+      const formElements = e.target.elements;
+      
+      for (let i = 0; i < formElements.length; i++) {
+        const element = formElements[i];
+        if (element.name && element.name !== '') {
+          formData[element.name] = element.value;
+        }
+      }
+      
+      // Send the form data to our API
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        // Clear the form
+        e.target.reset();
+        
+        // Set success state
+        setFormStatus({
+          submitting: false,
+          submitted: true,
+          success: true,
+          message: result.message
+        });
+      } else {
+        // Set error state
+        setFormStatus({
+          submitting: false,
+          submitted: true,
+          success: false,
+          message: result.message || 'Failed to send your request. Please try again.'
+        });
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      
+      // Set error state
+      setFormStatus({
+        submitting: false,
+        submitted: true,
+        success: false,
+        message: 'An unexpected error occurred. Please try again later.'
+      });
+    }
+  };
   return (
     <section id="contact" className="py-5" style={{
       backgroundColor: 'rgba(25,30,40,0.25)',  // Match other sections background
@@ -43,7 +115,7 @@ const ContactSection = ({ companyColors }) => {
                 borderRadius: '15px'
               }}
             >
-              <form id="contact-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST"> {/* Replace YOUR_FORMSPREE_ID */}
+              <form id="contact-form" onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label htmlFor="name" className="form-label" style={{
                     color: companyColors.secondary,
@@ -166,13 +238,13 @@ const ContactSection = ({ companyColors }) => {
                       transition: 'all 0.3s ease'
                     }}
                   >
-                    <option value="">-- Select Floor Type --</option>
-                    <option value="garage">Garage</option>
-                    <option value="basement">Basement</option>
-                    <option value="bathroom">Bathroom</option>
-                    <option value="studio">Studio</option>
-                    <option value="trailer">Trailer</option>
-                    <option value="other">Other</option>
+                    <option value="" style={{ backgroundColor: '#333', color: '#fff' }}>-- Select Floor Type --</option>
+                    <option value="garage" style={{ backgroundColor: '#333', color: '#fff' }}>Garage</option>
+                    <option value="basement" style={{ backgroundColor: '#333', color: '#fff' }}>Basement</option>
+                    <option value="bathroom" style={{ backgroundColor: '#333', color: '#fff' }}>Bathroom</option>
+                    <option value="studio" style={{ backgroundColor: '#333', color: '#fff' }}>Studio</option>
+                    <option value="trailer" style={{ backgroundColor: '#333', color: '#fff' }}>Trailer</option>
+                    <option value="other" style={{ backgroundColor: '#333', color: '#fff' }}>Other</option>
                   </select>
                 </div>
                 
@@ -198,12 +270,12 @@ const ContactSection = ({ companyColors }) => {
                       transition: 'all 0.3s ease'
                     }}
                   >
-                    <option value="">-- Select Finish --</option>
-                    <option value="solid">Solid Color</option>
-                    <option value="flake">Decorative Flake</option>
-                    <option value="metallic-solid">Metallic Solid</option>
-                    <option value="metallic-marbled">Metallic Marbled</option>
-                    <option value="custom">Custom</option>
+                    <option value="" style={{ backgroundColor: '#333', color: '#fff' }}>-- Select Finish --</option>
+                    <option value="solid" style={{ backgroundColor: '#333', color: '#fff' }}>Solid Color</option>
+                    <option value="flake" style={{ backgroundColor: '#333', color: '#fff' }}>Decorative Flake</option>
+                    <option value="metallic-solid" style={{ backgroundColor: '#333', color: '#fff' }}>Metallic Solid</option>
+                    <option value="metallic-marbled" style={{ backgroundColor: '#333', color: '#fff' }}>Metallic Marbled</option>
+                    <option value="custom" style={{ backgroundColor: '#333', color: '#fff' }}>Custom</option>
                   </select>
                 </div>
                 
@@ -228,8 +300,8 @@ const ContactSection = ({ companyColors }) => {
                       transition: 'all 0.3s ease'
                     }}
                   >
-                    <option value="no">No</option>
-                    <option value="yes">Yes</option>
+                    <option value="no" style={{ backgroundColor: '#333', color: '#fff' }}>No</option>
+                    <option value="yes" style={{ backgroundColor: '#333', color: '#fff' }}>Yes</option>
                   </select>
                 </div>
                 
@@ -306,11 +378,25 @@ const ContactSection = ({ companyColors }) => {
                   ></textarea>
                 </div>
                 
+                {/* Status message display */}
+                {formStatus.submitted && (
+                  <div className={`alert ${formStatus.success ? 'alert-success' : 'alert-danger'} mb-4`} 
+                    style={{
+                      backgroundColor: formStatus.success ? 'rgba(25, 135, 84, 0.15)' : 'rgba(220, 53, 69, 0.15)',
+                      color: formStatus.success ? '#25a560' : '#e74c3c',
+                      border: formStatus.success ? '1px solid rgba(25, 135, 84, 0.3)' : '1px solid rgba(220, 53, 69, 0.3)',
+                      borderRadius: '8px',
+                      padding: '15px'
+                    }}>
+                    {formStatus.message}
+                  </div>
+                )}
+
                 <div className="text-center mt-4">
                   <AnimatedSubmitButton 
                     className="btn btn-lg" 
                     style={{
-                      backgroundColor: companyColors.primary, 
+                      backgroundColor: formStatus.submitting ? 'rgba(128,128,128,0.5)' : companyColors.primary, 
                       borderColor: companyColors.primary, 
                       color: '#fff', 
                       padding: '15px 45px',
@@ -320,11 +406,14 @@ const ContactSection = ({ companyColors }) => {
                       boxShadow: '0 8px 15px rgba(0,0,0,0.2)',
                       borderRadius: '8px',
                       fontSize: '1.1rem',
-                      transition: 'all 0.3s ease'
+                      transition: 'all 0.3s ease',
+                      pointerEvents: formStatus.submitting ? 'none' : 'auto',
+                      opacity: formStatus.submitting ? 0.7 : 1
                     }}
                     variant="primary"
+                    disabled={formStatus.submitting}
                   >
-                    Submit Request
+                    {formStatus.submitting ? 'Sending...' : 'Submit Request'}
                   </AnimatedSubmitButton>
                 </div>
                 

@@ -5,6 +5,23 @@ import { AnimatedButton } from '../AnimatedButton';
 import { FaPhoneAlt, FaComments } from 'react-icons/fa';
 
 const CallToActionSection = ({ companyColors }) => {
+  // Handle smooth scrolling for buttons
+  const handleSmoothScroll = (e, targetId) => {
+    e.preventDefault();
+    const element = document.getElementById(targetId);
+    if (element) {
+      // Scroll to element smoothly
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+      
+      // Small offset to account for the fixed navbar
+      setTimeout(() => {
+        window.scrollBy(0, -80);
+      }, 10);
+    }
+  };
   return (
     <section 
       id="cta" 
@@ -93,6 +110,7 @@ const CallToActionSection = ({ companyColors }) => {
         <div className="d-flex justify-content-center flex-wrap">
           <AnimatedButton 
             href="#contact" 
+            onClick={(e) => handleSmoothScroll(e, 'contact')}
             className="btn btn-light btn-lg me-3 mb-3 d-inline-flex align-items-center" 
             style={{
               padding: '15px 30px', 

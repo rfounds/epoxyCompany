@@ -2,16 +2,40 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { AnimatedButton } from '../AnimatedButton';
 import { FaChevronRight } from 'react-icons/fa';
 
 const Navbar = ({ companyColors }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   
-  // Handle scroll effect for transparent to solid background transition
+  // Handle smooth scrolling for nav links
+  const handleSmoothScroll = (e, targetId) => {
+    e.preventDefault();
+    const element = document.getElementById(targetId);
+    if (element) {
+      // Close mobile menu
+      setMobileOpen(false);
+      
+      // Scroll to element smoothly
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+      
+      // Small offset to account for the fixed navbar
+      setTimeout(() => {
+        window.scrollBy(0, -80);
+      }, 10);
+    }
+  };
+  
+  // Handle initial load and scroll effect
   useEffect(() => {
+    // Set loaded state after component mounts to prevent animation issues
+    setIsLoaded(true);
+    
     const handleScroll = () => {
       const isScrolled = window.scrollY > 20;
       if (isScrolled !== scrolled) {
@@ -74,22 +98,6 @@ const Navbar = ({ companyColors }) => {
         .nav-link-effect.active::before {
           width: 80%;
           background-color: ${companyColors.primary};
-        }
-        
-        .logo-text {
-          position: relative;
-          z-index: 1;
-        }
-        
-        .logo-text::after {
-          content: '';
-          position: absolute;
-          bottom: 2px;
-          left: 0;
-          width: 100%;
-          height: 4px;
-          background: linear-gradient(90deg, ${companyColors.primary}, transparent);
-          z-index: -1;
         }
         
         @media (max-width: 991.98px) {
@@ -163,10 +171,11 @@ const Navbar = ({ companyColors }) => {
         }
       `}</style>
 
+      {/* Centered navbar with no logo */}
       <nav 
         className={`navbar navbar-expand-lg navbar-dark ${scrolled ? 'navbar-scrolled' : ''}`} 
         style={{ 
-          backgroundColor: scrolled ? 'rgba(0,0,0,0.9)' : 'rgba(0,0,0,0.3)', 
+          backgroundColor: scrolled ? 'rgba(0,0,0,0.9)' : 'rgba(0,0,0,0.3)',
           padding: scrolled ? '0.5rem 1rem' : '0.75rem 1rem',
           borderBottom: scrolled ? '1px solid rgba(255,255,255,0.05)' : 'none',
           boxShadow: scrolled ? '0 4px 20px rgba(0,0,0,0.3)' : 'none',
@@ -174,45 +183,18 @@ const Navbar = ({ companyColors }) => {
         }}
       >
         <div className="container">
-          {/* SVG Logo */}
+          {/* Brand name - only visible when scrolled */}
           <Link href="/" legacyBehavior>
-            <a className="navbar-brand" style={{ 
-              fontFamily: 'var(--font-oswald), sans-serif', 
-              letterSpacing: '1.5px', 
+            <a className="navbar-brand d-none d-lg-block" style={{
               color: '#fff',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-start',
-              transition: 'transform 0.3s ease',
-              transform: scrolled ? 'scale(0.95)' : 'scale(1)',
-              transformOrigin: 'left center',
-              height: scrolled ? '60px' : '75px',
-              overflow: 'visible',
-              marginRight: '3rem'
-            }}>
-              <div className="logo-container" style={{
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                maxHeight: '100%',
-                transition: 'all 0.3s ease'
-              }}>
-                <Image 
-                  src="/images/1stgenlogo.svg" 
-                  alt="1st Gen Epoxy Logo" 
-                  width={scrolled ? 320 : 400} 
-                  height={scrolled ? 85 : 105} 
-                  priority 
-                  style={{
-                    transition: 'all 0.3s ease',
-                    filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))',
-                    maxHeight: scrolled ? '60px' : '75px',
-                    width: 'auto'
-                  }}
-                />
-              </div>
-            </a>
+              fontFamily: 'var(--font-oswald), sans-serif',
+              fontWeight: '600',
+              fontSize: '1.25rem',
+              letterSpacing: '1px',
+              textTransform: 'uppercase',
+              opacity: scrolled ? 1 : 0,
+              transition: 'all 0.3s ease',
+            }}>1st Gen Epoxy</a>
           </Link>
           
           {/* Custom hamburger button */}
@@ -232,15 +214,15 @@ const Navbar = ({ companyColors }) => {
             <span></span>
           </button>
           
-          {/* Navbar links with enhanced hover effect */}
-          <div className={`collapse navbar-collapse ${mobileOpen ? 'show' : ''}`} id="navbarNav">
-            <ul className="navbar-nav ms-auto align-items-center">
+          {/* Navbar links with enhanced hover effect - centered */}
+          <div className={`collapse navbar-collapse ${mobileOpen ? 'show' : ''}`} id="navbarNav" style={{ transition: 'none' }}>
+            <ul className="navbar-nav mx-auto align-items-center" style={{ position: 'relative' }}>
               <li className="nav-item">
                 <Link href="#about" legacyBehavior>
                   <a 
                     className="nav-link-effect" 
                     style={navLinkStyle} 
-                    onClick={() => setMobileOpen(false)}
+                    onClick={(e) => handleSmoothScroll(e, 'about')}
                   >
                     About
                   </a>
@@ -251,20 +233,20 @@ const Navbar = ({ companyColors }) => {
                   <a 
                     className="nav-link-effect" 
                     style={navLinkStyle} 
-                    onClick={() => setMobileOpen(false)}
+                    onClick={(e) => handleSmoothScroll(e, 'services')}
                   >
                     Services
                   </a>
                 </Link>
               </li>
               <li className="nav-item">
-                <Link href="#gallery" legacyBehavior>
+                <Link href="#why-choose-us" legacyBehavior>
                   <a 
                     className="nav-link-effect" 
                     style={navLinkStyle} 
-                    onClick={() => setMobileOpen(false)}
+                    onClick={(e) => handleSmoothScroll(e, 'why-choose-us')}
                   >
-                    Gallery
+                    Why Choose Us
                   </a>
                 </Link>
               </li>
@@ -273,45 +255,36 @@ const Navbar = ({ companyColors }) => {
                   <a 
                     className="nav-link-effect" 
                     style={navLinkStyle} 
-                    onClick={() => setMobileOpen(false)}
+                    onClick={(e) => handleSmoothScroll(e, 'testimonials')}
                   >
                     Testimonials
                   </a>
                 </Link>
               </li>
               <li className="nav-item ms-lg-2 mt-3 mt-lg-0">
-                <AnimatedButton 
+                <a 
                   href="#contact" 
-                  className="btn animated-btn" 
+                  className="btn" 
+                  onClick={(e) => handleSmoothScroll(e, 'contact')}
                   style={{
                     backgroundColor: 'rgba(0,0,0,0.4)', 
                     borderColor: companyColors.primary,
-                    borderWidth: '2px',
                     color: '#fff',
                     fontFamily: 'var(--font-oswald), sans-serif',
-                    fontWeight: '600',
-                    padding: '0.6rem 1.5rem',
-                    fontSize: '0.95rem',
-                    letterSpacing: '1px',
+                    letterSpacing: '0.5px',
+                    padding: '0.5rem 1.5rem',
+                    fontSize: '1rem',
+                    transition: 'all 0.3s ease',
                     textTransform: 'uppercase',
-                    boxShadow: '0 8px 20px rgba(0,0,0,0.15)',
-                    backdropFilter: 'blur(5px)',
-                    WebkitBackdropFilter: 'blur(5px)',
-                    borderRadius: '6px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '0.5rem',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    animation: 'pulse-border 2s infinite'
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                    fontWeight: '500'
                   }}
-                  variant="primary"
-                  hoverEffect="pulse"
                 >
-                  <span>Get a Quote</span>
-                  <FaChevronRight size={12} className="arrow-icon" />
-                </AnimatedButton>
+                  <span className="d-flex align-items-center">
+                    Get a Quote 
+                    <FaChevronRight style={{ marginLeft: '5px', fontSize: '0.8rem' }} />
+                  </span>
+                </a>
               </li>
             </ul>
           </div>

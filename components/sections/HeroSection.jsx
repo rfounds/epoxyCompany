@@ -1,10 +1,28 @@
 'use client';
 
 import React, { useEffect, useState, useRef } from 'react';
+import Image from 'next/image';
 import { AnimatedButton } from '../AnimatedButton';
 import { FaStar, FaCheck, FaArrowDown } from 'react-icons/fa';
 
 const HeroSection = ({ companyColors }) => {
+  // Handle smooth scrolling for buttons
+  const handleSmoothScroll = (e, targetId) => {
+    e.preventDefault();
+    const element = document.getElementById(targetId);
+    if (element) {
+      // Scroll to element smoothly
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+      
+      // Small offset to account for the fixed navbar
+      setTimeout(() => {
+        window.scrollBy(0, -80);
+      }, 10);
+    }
+  };
   // States for animations and parallax effects
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -99,9 +117,9 @@ const HeroSection = ({ companyColors }) => {
         opacity: isLoaded ? 1 : 0,
         transition: 'opacity 1.2s ease-in'
       }}>
-        <div className="row align-items-center" style={{ minHeight: '80vh' }}>
+        <div className="row align-items-center flex-column flex-lg-row" style={{ minHeight: '80vh', paddingBottom: '80px' }}>
           {/* Left column with main content */}
-          <div className="col-lg-7 text-lg-start text-center"
+          <div className="col-lg-7 text-lg-start text-center order-2 order-lg-1"
             style={{ 
               transform: isLoaded ? 'translateY(0)' : 'translateY(30px)',
               transition: 'transform 1.2s ease-out'
@@ -174,6 +192,7 @@ const HeroSection = ({ companyColors }) => {
             }}>
               <AnimatedButton 
                 href="#contact" 
+                onClick={(e) => handleSmoothScroll(e, 'contact')}
                 className="btn btn-lg me-3 mb-3 mb-md-0" 
                 style={{
                   backgroundColor: companyColors.primary, 
@@ -196,7 +215,8 @@ const HeroSection = ({ companyColors }) => {
               </AnimatedButton>
               
               <AnimatedButton 
-                href="tel:405-780-2438" 
+                href="#contact" 
+                onClick={(e) => handleSmoothScroll(e, 'contact')}
                 className="btn btn-outline-light btn-lg" 
                 style={{
                   borderColor: 'rgba(255,255,255,0.3)', 
@@ -216,21 +236,48 @@ const HeroSection = ({ companyColors }) => {
                 variant="outline"
                 hoverEffect="shine"
               >
-                Book Now
+                Get a Quote
               </AnimatedButton>
             </div>
           </div>
           
-          {/* Right column - removed floating images as requested */}
-          <div className="col-lg-5 d-none d-lg-block">
+          {/* Logo column - appears on top on mobile */}
+          <div className="col-lg-5 col-md-6 col-10 mx-auto mx-lg-0 text-center pt-3 pt-lg-0 d-flex justify-content-center order-1 order-lg-2"
+            style={{ 
+              transform: isLoaded ? 'translateY(0) scale(1)' : 'translateY(30px) scale(0.9)',
+              opacity: isLoaded ? 1 : 0,
+              transition: 'all 1.4s ease-out 0.4s'
+            }}
+          >
+            <div style={{
+              position: 'relative',
+              width: '100%',
+              maxWidth: '450px',
+              margin: '0 auto',
+              filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.4))',
+              animation: 'float 8s ease-in-out infinite',
+            }}>
+              <Image 
+                src="/images/1stgenlogo.svg" 
+                alt="1st Gen Epoxy Logo" 
+                width={500}  
+                height={500}  
+                priority 
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  filter: 'drop-shadow(0 0 15px rgba(255,255,255,0.15))',
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
       
-      {/* Scroll down indicator */}
+      {/* Scroll down indicator - positioned lower on mobile */}
       <div className="scroll-indicator" style={{
         position: 'absolute',
-        bottom: '30px',
+        bottom: '10px',
         left: '50%',
         transform: 'translateX(-50%)',
         zIndex: 10,
@@ -238,7 +285,7 @@ const HeroSection = ({ companyColors }) => {
         transition: 'opacity 1s ease-in 1.5s',
         animation: 'bounce 2s infinite',
         cursor: 'pointer',
-      }} onClick={() => document.getElementById('about').scrollIntoView({ behavior: 'smooth' })}>
+      }} onClick={(e) => handleSmoothScroll(e, 'about')}>
         <div style={{ 
           display: 'flex', 
           flexDirection: 'column', 
