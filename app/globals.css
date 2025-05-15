@@ -1,0 +1,87 @@
+/* Global styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, 
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.main-page-wrapper {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+main {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.sticky-top {
+  margin-top: 0;
+  padding-top: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Ensure navbar is compact */
+.navbar {
+  min-height: 40px;
+  padding: 0 1rem !important;
+  background-color: rgba(0,0,0,0.7) !important;
+}
+
+/* Ensure hero section starts immediately */
+#hero {
+  margin-top: 0;
+  padding-top: 0;
+  height: 100vh;
+  width: 100%;
+}
+
+/* Hero background image */
+#hero > div:first-child {
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  width: 100vw !important;
+  height: 100vh !important;
+}
+
+/* Make navbar links more compact */
+.nav-link {
+  padding: 0.25rem 0.5rem !important;
+}
+
+/* Adjust logo size */
+.navbar-brand img {
+  height: 40px;
+  width: auto;
+}
+
+/* Media queries for responsive background */
+@media (max-width: 768px) {
+  #hero > div:first-child {
+    background-position: center center !important;
+  }
+}
+
+@media (max-width: 480px) {
+  #hero > div:first-child {
+    background-position: center center !important;
+  }
+}

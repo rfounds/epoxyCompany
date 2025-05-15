@@ -5,6 +5,7 @@ import ScrollToTop from "../components/ScrollToTop";
 import Context from '@/context/Context';
 import { useEffect } from 'react'
 import '../public/main.scss'
+import './globals.css'
 
 
 

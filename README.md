@@ -1,34 +1,119 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 1st Gen Epoxy - Premium Epoxy Flooring Company Website
+
+A modern, responsive website for 1st Gen Epoxy, a family-owned epoxy flooring company based in Oklahoma. This website showcases their services, benefits, and provides a contact form for potential customers.
+
+## Project Overview
+
+This website is built using Next.js, React, and modern web technologies to create a visually appealing and functional online presence for 1st Gen Epoxy. The site features a realistic marbled epoxy background that represents the company's premium flooring services.
+
+## Technology Stack
+
+- **Framework**: [Next.js](https://nextjs.org/) (React framework)
+- **Styling**: CSS-in-JS with inline styles
+- **Fonts**: Google Fonts (Roboto and Oswald)
+- **Form Handling**: Formspree integration
+- **Deployment**: Vercel (recommended)
+
+## Project Structure
+
+```
+├── app/                  # Next.js app directory
+│   ├── page.jsx          # Main page component
+│   └── layout.js         # Root layout
+├── components/           # React components
+│   ├── AnimatedButton.jsx # Button components with animations
+│   ├── layout/           # Layout components
+│   │   ├── Navbar.jsx    # Navigation bar component
+│   │   └── Footer.jsx    # Footer component
+│   └── sections/         # Page section components
+│       ├── HeroSection.jsx
+│       ├── AboutSection.jsx
+│       ├── ServicesSection.jsx
+│       ├── WhyChooseUsSection.jsx
+│       ├── CallToActionSection.jsx
+│       ├── TestimonialsSection.jsx
+│       └── ContactSection.jsx
+├── data/                 # Data files
+│   └── services.js       # Services, finishes, and benefits data
+├── public/               # Static assets
+│   └── images/           # Image files
+│       ├── logo.svg      # Company logo
+│       └── marbled-epoxy-bg.svg # Background image
+└── styles/               # Global styles
+```
+
+## Component Structure
+
+The website has been organized into modular components for better maintainability:
+
+1. **Layout Components**:
+   - `Navbar.jsx`: Navigation bar with links to page sections
+   - `Footer.jsx`: Footer with contact information and social media links
+
+2. **Section Components**:
+   - `HeroSection.jsx`: Main hero section with background and CTA buttons
+   - `AboutSection.jsx`: Company description and mission
+   - `ServicesSection.jsx`: List of services and finishes offered
+   - `WhyChooseUsSection.jsx`: Benefits of choosing 1st Gen Epoxy
+   - `CallToActionSection.jsx`: Secondary CTA section
+   - `TestimonialsSection.jsx`: Client testimonials (placeholder)
+   - `ContactSection.jsx`: Contact form for quote requests
+
+3. **Utility Components**:
+   - `AnimatedButton.jsx`: Button components with hover animations
+
+## Data Structure
+
+The website uses a structured data approach for services and benefits:
+
+- `applications`: List of floor types and applications
+- `finishes`: Available epoxy finishes and customizations
+- `benefits`: Company benefits and selling points
 
 ## Getting Started
 
-First, run the development server:
+First, install the dependencies:
+
+```bash
+npm install
+# or
+yarn install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Customization
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Company Colors
 
-## Learn More
+The website uses a consistent color scheme defined in `page.jsx`:
 
-To learn more about Next.js, take a look at the following resources:
+```javascript
+const companyColors = {
+  primary: '#b83d99',    // Pink/Purple
+  secondary: '#189ccd',  // Blue
+  background: '#0a0a0a',  // Near Black
+};
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Form Integration
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+The contact form uses Formspree. Replace the placeholder ID in `ContactSection.jsx` with your actual Formspree form ID:
 
-## Deploy on Vercel
+```javascript
+<form id="contact-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The easiest way to deploy this Next.js app is to use [Vercel](https://vercel.com/new) from the creators of Next.js.
+
+Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

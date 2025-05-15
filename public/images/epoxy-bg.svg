@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dark background -->
+  <rect width="1920" height="1080" fill="#000000"/>
+  
+  <!-- Epoxy marble effect with company colors -->
+  <defs>
+    <radialGradient id="marble1" cx="30%" cy="30%" r="70%" fx="30%" fy="30%">
+      <stop offset="0%" stop-color="#b83d99" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="marble2" cx="70%" cy="60%" r="80%" fx="70%" fy="60%">
+      <stop offset="0%" stop-color="#189ccd" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="marble3" cx="20%" cy="80%" r="60%" fx="20%" fy="80%">
+      <stop offset="0%" stop-color="#b83d99" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="marble4" cx="80%" cy="20%" r="70%" fx="80%" fy="20%">
+      <stop offset="0%" stop-color="#189ccd" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    
+    <!-- Glossy reflection effect -->
+    <linearGradient id="gloss" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.1"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.1"/>
+    </linearGradient>
+    
+    <!-- Swirl patterns for marble effect -->
+    <filter id="swirl" x="-50%" y="-50%" width="200%" height="200%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="3" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="100" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+  
+  <!-- Marble layers -->
+  <rect width="1920" height="1080" fill="url(#marble1)"/>
+  <rect width="1920" height="1080" fill="url(#marble2)"/>
+  <rect width="1920" height="1080" fill="url(#marble3)"/>
+  <rect width="1920" height="1080" fill="url(#marble4)"/>
+  
+  <!-- Swirl patterns -->
+  <path d="M0,540 Q480,200 960,540 T1920,540" fill="none" stroke="#b83d99" stroke-width="3" stroke-opacity="0.3" filter="url(#swirl)"/>
+  <path d="M0,340 Q480,700 960,340 T1920,340" fill="none" stroke="#189ccd" stroke-width="2" stroke-opacity="0.3" filter="url(#swirl)"/>
+  <path d="M0,740 Q480,400 960,740 T1920,740" fill="none" stroke="#b83d99" stroke-width="2" stroke-opacity="0.2" filter="url(#swirl)"/>
+  
+  <!-- Glossy overlay -->
+  <rect width="1920" height="1080" fill="url(#gloss)" opacity="0.7"/>
+  
+  <!-- Small flecks/particles for texture -->
+  <g opacity="0.6">
+    <!-- Generate 100 small circles with random positions for flake effect -->
+    <script type="text/javascript">
+      <![CDATA[
+      for (let i = 0; i < 200; i++) {
+        const x = Math.random() * 1920;
+        const y = Math.random() * 1080;
+        const r = Math.random() * 3 + 1;
+        const color = Math.random() > 0.5 ? "#b83d99" : "#189ccd";
+        document.write(`<circle cx="${x}" cy="${y}" r="${r}" fill="${color}" opacity="${Math.random() * 0.5 + 0.2}"/>`);
+      }
+      ]]>
+    </script>
+  </g>
+</svg>
