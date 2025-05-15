@@ -107,32 +107,7 @@ const HeroSection = ({ companyColors }) => {
               transition: 'transform 1.2s ease-out'
             }}
           >
-            {/* Floating logo/badge element */}
-            <div className="mb-4 d-inline-block position-relative"
-              style={{
-                padding: '8px 15px',
-                background: 'rgba(0,0,0,0.5)',
-                borderLeft: `4px solid ${companyColors.primary}`,
-                borderRadius: '0 4px 4px 0',
-                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
-                animation: 'float 6s infinite ease-in-out',
-              }}
-            >
-              <span style={{ 
-                fontFamily: 'var(--font-oswald), sans-serif',
-                fontWeight: '600',
-                letterSpacing: '1px',
-                fontSize: '1.2rem',
-                textTransform: 'uppercase',
-                display: 'flex',
-                alignItems: 'center'
-              }}>
-                <span style={{ 
-                  color: companyColors.primary,
-                  marginRight: '8px'
-                }}>1st</span> Gen Epoxy
-              </span>
-            </div>
+            {/* Logo element removed as requested */}
             
             {/* Main headline with animated background */}
             <h1 className="display-3 fw-bold mb-3" 
@@ -221,7 +196,7 @@ const HeroSection = ({ companyColors }) => {
               </AnimatedButton>
               
               <AnimatedButton 
-                href="#gallery" 
+                href="tel:405-780-2438" 
                 className="btn btn-outline-light btn-lg" 
                 style={{
                   borderColor: 'rgba(255,255,255,0.3)', 
@@ -235,111 +210,19 @@ const HeroSection = ({ companyColors }) => {
                   borderRadius: '8px',
                   backdropFilter: 'blur(5px)',
                   background: 'rgba(255,255,255,0.05)',
+                  position: 'relative',
+                  overflow: 'hidden',
                 }}
                 variant="outline"
                 hoverEffect="shine"
               >
-                View Our Work
+                Book Now
               </AnimatedButton>
             </div>
           </div>
           
-          {/* Right column with showcase elements */}
+          {/* Right column - removed floating images as requested */}
           <div className="col-lg-5 d-none d-lg-block">
-            <div className="position-relative" style={{
-              height: '500px',
-              opacity: isLoaded ? 1 : 0,
-              transform: isLoaded ? 'translateX(0)' : 'translateX(50px)',
-              transition: 'all 1.2s ease-out 0.4s',
-            }}>
-              {/* Floating image card 1 */}
-              <div style={{
-                position: 'absolute',
-                top: '10%',
-                right: '10%',
-                width: '280px',
-                height: '200px',
-                background: '#111',
-                borderRadius: '15px',
-                overflow: 'hidden',
-                boxShadow: '0 20px 50px rgba(0,0,0,0.4)',
-                transform: `translateY(${scrollPosition * -0.1}px) rotateZ(-3deg)`,
-                zIndex: 3,
-                border: '5px solid rgba(255,255,255,0.05)',
-              }}>
-                <img 
-                  src="/images/services/garage-floor.jpg" 
-                  alt="Epoxy Garage Floor" 
-                  style={{ 
-                    width: '100%', 
-                    height: '100%', 
-                    objectFit: 'cover',
-                    objectPosition: 'center'
-                  }} 
-                />
-                <div style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  padding: '15px',
-                  background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
-                  textAlign: 'left',
-                }}>
-                  <span style={{
-                    fontFamily: 'var(--font-oswald), sans-serif',
-                    fontWeight: '600',
-                    fontSize: '1rem',
-                    textTransform: 'uppercase',
-                  }}>Garage Transformation</span>
-                </div>
-              </div>
-              
-              {/* Floating image card 2 */}
-              <div style={{
-                position: 'absolute',
-                top: '45%',
-                left: '0%',
-                width: '250px',
-                height: '180px',
-                background: '#111',
-                borderRadius: '15px',
-                overflow: 'hidden',
-                boxShadow: '0 20px 50px rgba(0,0,0,0.4)',
-                transform: `translateY(${scrollPosition * -0.2}px) rotateZ(5deg)`,
-                zIndex: 2,
-                border: '5px solid rgba(255,255,255,0.05)',
-              }}>
-                <img 
-                  src="/images/finishes/metallic-finish.jpg" 
-                  alt="Metallic Epoxy Floor" 
-                  style={{ 
-                    width: '100%', 
-                    height: '100%', 
-                    objectFit: 'cover',
-                    objectPosition: 'center'
-                  }} 
-                />
-                <div style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  padding: '15px',
-                  background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
-                  textAlign: 'left',
-                }}>
-                  <span style={{
-                    fontFamily: 'var(--font-oswald), sans-serif',
-                    fontWeight: '600',
-                    fontSize: '0.9rem',
-                    textTransform: 'uppercase',
-                  }}>Metallic Finish</span>
-                </div>
-              </div>
-              
-              {/* Rating badge was removed as requested */}
-            </div>
           </div>
         </div>
       </div>

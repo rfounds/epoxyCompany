@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { AnimatedSocialLink } from '../AnimatedButton';
 import { FaPhone, FaEnvelope, FaInstagram, FaTiktok, FaMapMarkerAlt, FaHeart } from 'react-icons/fa';
 
@@ -15,6 +16,24 @@ const Footer = ({ companyColors }) => {
       {/* Subtle decorative element - consistent with other sections */}
       <div className="container">
         <div className="text-center mb-4">
+          <div className="footer-logo-container" style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginBottom: '25px'
+          }}>
+            <Image 
+              src="/images/1stgenlogo.svg" 
+              alt="1st Gen Epoxy Logo" 
+              width={450} 
+              height={120} 
+              priority 
+              style={{
+                filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))',
+                maxWidth: '100%',
+                height: 'auto'
+              }}
+            />
+          </div>
           <div style={{
             height: '3px',
             width: '60px',
@@ -149,7 +168,7 @@ const Footer = ({ companyColors }) => {
                 fontSize: '1.1rem',
                 fontFamily: 'var(--font-oswald), sans-serif',
               }}>
-                Oklahoma City & Surrounding Areas
+                Perry, OK & Surrounding Areas
               </span>
             </div>
           </div>

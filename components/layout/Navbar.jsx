@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { AnimatedButton } from '../AnimatedButton';
 import { FaChevronRight } from 'react-icons/fa';
 
@@ -162,16 +163,18 @@ const Navbar = ({ companyColors }) => {
         }
       `}</style>
 
-      <nav className={`navbar navbar-expand-lg navbar-dark ${scrolled ? 'py-2' : 'py-3'}`} 
+      <nav 
+        className={`navbar navbar-expand-lg navbar-dark ${scrolled ? 'navbar-scrolled' : ''}`} 
         style={{ 
-          backgroundColor: scrolled ? 'rgba(10,10,10,0.95)' : 'rgba(10,10,10,0.25)', 
-          boxShadow: scrolled ? '0 10px 30px rgba(0,0,0,0.15)' : 'none',
+          backgroundColor: scrolled ? 'rgba(0,0,0,0.9)' : 'rgba(0,0,0,0.3)', 
+          padding: scrolled ? '0.5rem 1rem' : '0.75rem 1rem',
           borderBottom: scrolled ? '1px solid rgba(255,255,255,0.05)' : 'none',
+          boxShadow: scrolled ? '0 4px 20px rgba(0,0,0,0.3)' : 'none',
           transition: 'all 0.4s ease'
         }}
       >
         <div className="container">
-          {/* Modern text-based logo instead of image */}
+          {/* SVG Logo */}
           <Link href="/" legacyBehavior>
             <a className="navbar-brand" style={{ 
               fontFamily: 'var(--font-oswald), sans-serif', 
@@ -179,42 +182,47 @@ const Navbar = ({ companyColors }) => {
               color: '#fff',
               display: 'flex',
               alignItems: 'center',
+              justifyContent: 'flex-start',
               transition: 'transform 0.3s ease',
-              transform: scrolled ? 'scale(0.9)' : 'scale(1)',
-              transformOrigin: 'left center'
+              transform: scrolled ? 'scale(0.95)' : 'scale(1)',
+              transformOrigin: 'left center',
+              height: scrolled ? '60px' : '75px',
+              overflow: 'visible',
+              marginRight: '3rem'
             }}>
-              <div>
-                <span className="logo-text" style={{ 
-                  display: 'inline-block',
-                  fontWeight: '700',
-                  fontSize: scrolled ? '1.6rem' : '1.8rem',
-                  textTransform: 'uppercase',
-                  transition: 'all 0.3s ease'
-                }}>
-                  <span style={{ color: companyColors.primary }}>1st</span> Gen
-                </span>
-                <span style={{ 
-                  display: 'block',
-                  fontSize: scrolled ? '0.8rem' : '0.9rem',
-                  letterSpacing: '3px',
-                  textTransform: 'uppercase',
-                  opacity: '0.8',
-                  fontWeight: '400'
-                }}>
-                  Epoxy Floors
-                </span>
+              <div className="logo-container" style={{
+                position: 'relative',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-start',
+                maxHeight: '100%',
+                transition: 'all 0.3s ease'
+              }}>
+                <Image 
+                  src="/images/1stgenlogo.svg" 
+                  alt="1st Gen Epoxy Logo" 
+                  width={scrolled ? 320 : 400} 
+                  height={scrolled ? 85 : 105} 
+                  priority 
+                  style={{
+                    transition: 'all 0.3s ease',
+                    filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))',
+                    maxHeight: scrolled ? '60px' : '75px',
+                    width: 'auto'
+                  }}
+                />
               </div>
             </a>
           </Link>
           
-          {/* Custom hamburger menu */}
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded={mobileOpen ? "true" : "false"}
+          {/* Custom hamburger button */}
+          <button 
+            className="navbar-toggler" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbarNav" 
+            aria-controls="navbarNav" 
+            aria-expanded={mobileOpen ? "true" : "false"} 
             aria-label="Toggle navigation"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
@@ -224,37 +232,57 @@ const Navbar = ({ companyColors }) => {
             <span></span>
           </button>
           
+          {/* Navbar links with enhanced hover effect */}
           <div className={`collapse navbar-collapse ${mobileOpen ? 'show' : ''}`} id="navbarNav">
             <ul className="navbar-nav ms-auto align-items-center">
               <li className="nav-item">
-                <Link href="/" legacyBehavior>
-                  <a className="nav-link nav-link-effect active" aria-current="page" style={navLinkStyle}>Home</a>
-                </Link>
-              </li>
-              <li className="nav-item">
                 <Link href="#about" legacyBehavior>
-                  <a className="nav-link nav-link-effect" style={navLinkStyle}>About</a>
+                  <a 
+                    className="nav-link-effect" 
+                    style={navLinkStyle} 
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    About
+                  </a>
                 </Link>
               </li>
               <li className="nav-item">
                 <Link href="#services" legacyBehavior>
-                  <a className="nav-link nav-link-effect" style={navLinkStyle}>Services</a>
+                  <a 
+                    className="nav-link-effect" 
+                    style={navLinkStyle} 
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    Services
+                  </a>
                 </Link>
               </li>
               <li className="nav-item">
-                <Link href="#why-choose-us" legacyBehavior>
-                  <a className="nav-link nav-link-effect" style={navLinkStyle}>Why Us</a>
+                <Link href="#gallery" legacyBehavior>
+                  <a 
+                    className="nav-link-effect" 
+                    style={navLinkStyle} 
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    Gallery
+                  </a>
                 </Link>
               </li>
               <li className="nav-item">
                 <Link href="#testimonials" legacyBehavior>
-                  <a className="nav-link nav-link-effect" style={navLinkStyle}>Testimonials</a>
+                  <a 
+                    className="nav-link-effect" 
+                    style={navLinkStyle} 
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    Testimonials
+                  </a>
                 </Link>
               </li>
               <li className="nav-item ms-lg-2 mt-3 mt-lg-0">
                 <AnimatedButton 
                   href="#contact" 
-                  className="btn" 
+                  className="btn animated-btn" 
                   style={{
                     backgroundColor: 'rgba(0,0,0,0.4)', 
                     borderColor: companyColors.primary,
@@ -273,13 +301,16 @@ const Navbar = ({ companyColors }) => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '0.5rem'
+                    gap: '0.5rem',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    animation: 'pulse-border 2s infinite'
                   }}
                   variant="primary"
-                  hoverEffect="glow"
+                  hoverEffect="pulse"
                 >
                   <span>Get a Quote</span>
-                  <FaChevronRight size={12} />
+                  <FaChevronRight size={12} className="arrow-icon" />
                 </AnimatedButton>
               </li>
             </ul>
