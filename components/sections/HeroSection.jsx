@@ -237,7 +237,7 @@ const HeroSection = ({ companyColors }) => {
                 variant="outline"
                 hoverEffect="shine"
               >
-                Call Us
+                Call Now
               </AnimatedButton>
             </div>
           </div>
