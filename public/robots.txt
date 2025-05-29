@@ -1,0 +1,51 @@
+# robots.txt for 1stGenEpoxy.com - Premium Epoxy Flooring Solutions
+
+# Allow all legitimate search engines full access
+User-agent: *
+Allow: /
+
+# Optimize crawl budget by excluding unnecessary files
+Disallow: /*.json$
+Disallow: /*.js$
+Disallow: /*.css$
+Disallow: /_next/static/
+
+# Allow Googlebot to access JavaScript and CSS
+User-agent: Googlebot
+Allow: /*.js$
+Allow: /*.css$
+Allow: /_next/static/
+
+# Allow Google Image Bot full access to image gallery
+User-agent: Googlebot-Image
+Allow: /images/
+Allow: /public/images/
+
+# Allow Google Mobile Bot full access for mobile indexing
+User-agent: Googlebot-Mobile
+Allow: /
+
+# Exclude unnecessary admin or utility pages from all bots
+User-agent: *
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /temp/
+
+# Set crawl rate limits for main search engines
+# Google typically respects this directive
+User-agent: Googlebot
+Crawl-delay: 1
+
+# Bing crawl rate
+User-agent: Bingbot
+Crawl-delay: 2
+
+# Sitemap locations - helps search engines discover your content
+Sitemap: https://1stgenepoxy.com/sitemap.xml
+
+# Structured data sitemap - if you have one
+# Sitemap: https://1stgenepoxy.com/sitemap-products.xml
+
+# Host directive helps with canonicalization
+Host: https://1stgenepoxy.com
